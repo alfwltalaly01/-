@@ -791,6 +791,18 @@ document.addEventListener("click", function(e) {
     });
 }
 </script>
- 
+ <script>
+  const bell = document.getElementById('notiBell');
+  const dropdown = document.getElementById('notiContent');
+
+  bell.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+  });
+
+  document.addEventListener('click', function() {
+    dropdown.classList.remove('show');
+  });
+</script>
 </body>
 </html>
