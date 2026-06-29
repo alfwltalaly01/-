@@ -530,3 +530,116 @@ iframe.map-frame{width:100%;height:400px;border:none;display:block;filter:graysc
   height: auto;
   filter: contrast(110%) brightness(105%); 
 }
+
+/* ==========================================
+   تنسيق سلة إشعارات الجرس (الفولت العالي)
+========================================== */
+
+.notification-container {
+  position: relative;
+  display: inline-block;
+  direction: rtl;
+  margin-left: 15px; 
+  margin-right: 15px;
+  vertical-align: middle;
+  z-index: 1000;
+}
+
+.bell-icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.bell-icon-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+}
+
+.bell-badge {
+  position: absolute;
+  top: 0px;
+  right: -2px;
+  background-color: #ff3b30; 
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #fff; 
+}
+
+.bell-dropdown {
+  display: none; 
+  position: absolute;
+  left: 0; 
+  top: 45px;
+  background-color: #ffffff;
+  min-width: 300px;
+  max-width: 340px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+}
+
+.bell-dropdown-header {
+  background-color: #f9f9f9;
+  padding: 12px 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #eeeeee;
+  color: #222;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.bell-dropdown-body {
+  max-height: 320px;
+  overflow-y: auto; 
+}
+
+.bell-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f6f6f6;
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.bell-item:last-child {
+  border-bottom: none; 
+}
+
+.bell-item.unread {
+  background-color: #f4f8ff;
+  border-right: 4px solid #007aff; 
+}
+
+.bell-dropdown.show {
+  display: block;
+  animation: bellFadeIn 0.2s ease;
+}
+
+@keyframes bellFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .bell-dropdown {
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    top: 70px;
+    min-width: auto;
+    max-width: 90%;
+  }
+}
