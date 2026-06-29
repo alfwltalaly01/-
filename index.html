@@ -639,8 +639,28 @@
 
 
 <script src="script.js"></script>
-642 <script>
-643   document.getElementById("current-year").textContent = new Date().getFullYear();
-644 </script>
-645 </body>
-646 </html>
+ <script>
+  // 1. تحديث السنة تلقائياً
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+
+  // 2. ربط نموذج عرض السعر بالواتساب بالخل
+  document.getElementById("quoteForm").addEventListener("submit", function(e) {
+    e.preventDefault(); 
+    
+    const name = this.querySelector('input[type="text"]').value;
+    const phone = this.querySelector('input[type="tel"]').value;
+    const service = this.querySelector('select').value;
+    const details = this.querySelector('textarea').value;
+    
+    const message = `مرحباً الفولت العالي، أود طلب عرض سعر:\n\n` +
+                    `👤 الاسم: ${name}\n` +
+                    `📱 رقم الجوال: ${phone}\n` +
+                    `🛠️ نوع الخدمة: ${service}\n` +
+                    `📝 تفاصيل الطلب: ${details}`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/966597171399?text=${encodedMessage}`, '_blank');
+  });
+</script>
+</body>
+</html>
