@@ -14,29 +14,145 @@
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
 <div class="nav-inner" style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
-<nav class="navbar" id="navbar">
-<div class="nav-inner" style="display: flex !important; justify-content: space-between !important; align-items: center;">
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام الإشعارات</title>
+  <style>
+    /* حاوية زر الإشعارات */
+    .notification-container {
+      position: relative;
+      display: inline-block;
+      font-family: sans-serif;
+      direction: rtl;
+    }
 
-    <div class="relative inline-block text-right z-50">
-        
-        <button id="notiBell" class="relative bg-transparent border-none text-2xl cursor-pointer p-2 focus:outline-none">
-            🔔
-            <span class="bell-badge absolute top-1 right-1 flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-        </button>
-        
-        <div id="notiContent" class="hidden absolute top-full left-0 md:left-auto md:right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transform translate-x-2 sm:translate-x-0">
-            <div class="flex flex-col">
-                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">⚡ تحديث الخدمة: خصم 15%</div>
-                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">📅 حجز سريع: عبر الواتساب</div>
-                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">🏠 نصيحة: فحص التمديدات</div>
-                <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 border-b border-gray-100 hover:bg-blue-100 cursor-pointer">🔔 إشعار جديد: تم قبول طلبك بنجاح</div>
-                <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 hover:bg-blue-100 cursor-pointer">💰 تحديث مالي: تم استلام الدفعة الأولى</div>
-            </div>
+    /* زر الجرس */
+    .bell-icon-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      position: relative;
+      padding: 8px;
+    }
+
+    /* شارة عدد الإشعارات */
+    .bell-badge {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background-color: #ff3b30;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* القائمة المنسدلة للإشعارات */
+    .bell-dropdown {
+      display: none; /* مخفية افتراضيًا */
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 320px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    /* رأس القائمة */
+    .bell-dropdown-header {
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #eee;
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* جسم القائمة والحقول */
+    .bell-dropdown-body {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* عنصر الإشعار المفرد */
+    .bell-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .bell-item:last-child {
+      border-bottom: none;
+    }
+
+    /* الإشعار غير المقروء */
+    .bell-item.unread {
+      background-color: #f0f7ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="notification-container">
+    <button class="bell-icon-btn" id="notiBell" aria-label="الإشعارات">
+      🔔
+      <span class="bell-badge">3</span>
+    </button>
+    
+    <div class="bell-dropdown" id="notiContent">
+      <div class="bell-dropdown-header">
+        <span>🔔 التنبيهات الأخيرة</span>
+      </div>
+      <div class="bell-dropdown-body">
+        <div class="bell-item unread">
+          <strong>⚡ عرض الفولت العالي:</strong> خصم 15% على خدمات الفحص الشامل للكهرباء والسباكة بمناسبة الصيف!
         </div>
+        <div class="bell-item">
+          <strong>📅 حجز سريع:</strong> تم تفعيل الحجز المباشر للمواعيد وتأكيده عبر الواتساب فوراً.
+        </div>
+        <div class="bell-item">
+          <strong>💡 نصيحة السلامة:</strong> افحص لوحة القواطع الكهربائية دورياً لتجنب الأحمال الزائدة.
+        </div>
+      </div>
     </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const notiBell = document.getElementById('notiBell');
+      const notiContent = document.getElementById('notiContent');
+
+      // إظهار وإخفاء القائمة عند الضغط على الجرس
+      notiBell.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (notiContent.style.display === 'block') {
+          notiContent.style.display = 'none';
+        } else {
+          notiContent.style.display = 'block';
+        }
+      });
+
+      // إخفاء القائمة عند الضغط في أي مكان خارجها
+      document.addEventListener('click', (e) => {
+        if (!notiContent.contains(e.target) && e.target !== notiBell) {
+          notiContent.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
     </div>
 </div>
         </div>
