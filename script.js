@@ -103,6 +103,12 @@ window.addEventListener('scroll', () => {
 // Bell Notification
 const notiBell = document.getElementById('notiBell');
 const notiContent = document.getElementById('notiContent');
+const bellBadge = document.querySelector('.bell-badge');
+
+if (bellBadge) {
+  const count = document.querySelectorAll('.bell-item').length;
+  bellBadge.textContent = count;
+}
 
 if (notiBell && notiContent) {
   notiBell.addEventListener('click', function(e) {
