@@ -639,28 +639,63 @@
 
 
 <script src="script.js"></script>
- <script>
-  // 1. تحديث السنة تلقائياً
-  document.getElementById("current-year").textContent = new Date().getFullYear();
+<script>
+  // 1. تحديث السنة تلقائياً في الفوتر
+  const yearElement = document.getElementById("current-year");
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
 
-  // 2. ربط نموذج عرض السعر بالواتساب بالخل
-  document.getElementById("quoteForm").addEventListener("submit", function(e) {
-    e.preventDefault(); 
-    
-    const name = this.querySelector('input[type="text"]').value;
-    const phone = this.querySelector('input[type="tel"]').value;
-    const service = this.querySelector('select').value;
-    const details = this.querySelector('textarea').value;
-    
-    const message = `مرحباً الفولت العالي، أود طلب عرض سعر:\n\n` +
-                    `👤 الاسم: ${name}\n` +
-                    `📱 رقم الجوال: ${phone}\n` +
-                    `🛠️ نوع الخدمة: ${service}\n` +
-                    `📝 تفاصيل الطلب: ${details}`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/966597171399?text=${encodedMessage}`, '_blank');
-  });
+  // 2. ربط نموذج عرض السعر بالواتساب (الرقم الأول: 0597171399)
+  const quoteForm = document.getElementById("quoteForm");
+  if (quoteForm) {
+    quoteForm.addEventListener("submit", function(e) {
+      e.preventDefault(); 
+      const name = this.querySelector('input[type="text"]').value;
+      const phone = this.querySelector('input[type="tel"]').value;
+      const service = this.querySelector('select').value;
+      const details = this.querySelector('textarea').value;
+      
+      const message = `مرحباً الفولت العالي، أود طلب عرض سعر:\n\n` +
+                      `👤 الاسم: ${name}\n` +
+                      `📱 رقم الجوال: ${phone}\n` +
+                      `🛠️ نوع الخدمة: ${service}\n` +
+                      `📝 تفاصيل الطلب: ${details}`;
+      
+      window.open(`https://wa.me/966597171399?text=${encodeURIComponent(message)}`, '_blank');
+    });
+  }
+
+  // 3. ربط نموذج حجز الموعد بالواتساب (الرقم الثاني: 0599178496)
+  const bookingForm = document.getElementById("bookingForm");
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", function(e) {
+      e.preventDefault(); 
+      const name = this.querySelector('input[type="text"]').value;
+      const phone = this.querySelector('input[type="tel"]').value;
+      const dateInput = this.querySelector('input[type="date"]');
+      const serviceInput = this.querySelector('select');
+      const noteInput = this.querySelector('textarea');
+      
+      // سحب الوقت المحدد من الحقل المخفي أو المختار
+      const selectedTimeInput = document.getElementById("selectedTime");
+      const time = selectedTimeInput && selectedTimeInput.value ? selectedTimeInput.value : 'لم يتم تحديد وقت';
+      
+      const date = dateInput ? dateInput.value : 'لم يتم تحديد تاريخ';
+      const service = serviceInput ? serviceInput.value : 'صيانة عامة';
+      const note = noteInput ? noteInput.value : 'لا توجد ملاحظات إضافية';
+
+      const message = `مرحباً الفولت العالي، أود حجز موعد صيانة:\n\n` +
+                      `👤 الاسم: ${name}\n` +
+                      `📱 رقم الجوال: ${phone}\n` +
+                      `🛠️ الخدمة المطلوبة: ${service}\n` +
+                      `📅 التاريخ المفضل: ${date}\n` +
+                      `⏰ الوقت المفضل: ${time}\n` +
+                      `📝 ملاحظات: ${note}`;
+      
+      window.open(`https://wa.me/966599178496?text=${encodeURIComponent(message)}`, '_blank');
+    });
+  }
 </script>
 </body>
 </html>
