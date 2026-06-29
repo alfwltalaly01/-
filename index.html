@@ -14,6 +14,26 @@
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
 <div class="nav-inner" style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
+  <div class="notification-container">
+  <button class="bell-icon-btn" id="notiBell" aria-label="الإشعارات">
+    🔔
+    <span class="bell-badge">3</span>
+  </button>
+  
+  <div class="bell-dropdown hidden" id="notiContent">
+    <div class="bell-dropdown-header">
+      <span>🔔 التنبيهات الأخيرة</span>
+    </div>
+    <div class="bell-dropdown-body">
+      <div class="bell-item unread">
+        <strong>⚡ عرض الفولت العالي:</strong> خصم 15% على خدمات الفحص الشامل للكهرباء بمناسبة الصيف!
+      </div>
+      <div class="bell-item">
+        <strong>📅 حجز سريع:</strong> تم تفعيل الحجز المباشر للمواعيد وتأكيده عبر الواتساب فوراً.
+      </div>
+    </div>
+  </div>
+</div>
  <style>
 /* حاوية زر الإشعارات */
 .notification-container {
