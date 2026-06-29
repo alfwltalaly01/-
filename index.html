@@ -770,8 +770,10 @@ if (notiBell && notiContent) {
     }
   });
 }
-    // 1. عند الضغط على زر الجرس
-    notiBell.addEventListener("click", function(e) {
+const notiBell = document.getElementById('notiBell');
+const notiContent = document.getElementById('notiContent');
+const bellBadge = document.querySelector('.bell-badge');
+  notiBell.addEventListener("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
         
