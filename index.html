@@ -14,20 +14,32 @@
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
 <div class="nav-inner" style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
-  <div class="relative inline-block text-right z-50">
-    <button id="notiBell" class="bg-transparent border-none text-2xl cursor-pointer p-2 focus:outline-none">
-        🔔
-    </button>
-    
-    <div id="notiContent" class="hidden absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden">
-        <div class="flex flex-col">
-            <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">⚡ تحديث الخدمة: خصم 15%</div>
-            <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">📅 حجز سريع: عبر الواتساب</div>
-            <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">🏠 نصيحة: فحص التمديدات</div>
-            
-            <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 border-b border-gray-100 hover:bg-blue-100 cursor-pointer">🔔 إشعار جديد: تم قبول طلبك بنجاح</div>
-            <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 hover:bg-blue-100 cursor-pointer">💰 تحديث مالي: تم استلام الدفعة الأولى</div>
+<nav class="navbar" id="navbar">
+<div class="nav-inner" style="display: flex !important; justify-content: space-between !important; align-items: center;">
+
+    <div class="relative inline-block text-right z-50">
+        
+        <button id="notiBell" class="relative bg-transparent border-none text-2xl cursor-pointer p-2 focus:outline-none">
+            🔔
+            <span class="bell-badge absolute top-1 right-1 flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+        </button>
+        
+        <div id="notiContent" class="hidden absolute top-full left-0 md:left-auto md:right-0 mt-2 w-64 sm:w-72 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden transform translate-x-2 sm:translate-x-0">
+            <div class="flex flex-col">
+                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">⚡ تحديث الخدمة: خصم 15%</div>
+                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">📅 حجز سريع: عبر الواتساب</div>
+                <div class="p-3 text-sm text-gray-700 border-b border-gray-100 hover:bg-gray-50 cursor-pointer">🏠 نصيحة: فحص التمديدات</div>
+                <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 border-b border-gray-100 hover:bg-blue-100 cursor-pointer">🔔 إشعار جديد: تم قبول طلبك بنجاح</div>
+                <div class="p-3 text-sm text-blue-900 font-bold bg-blue-50 hover:bg-blue-100 cursor-pointer">💰 تحديث مالي: تم استلام الدفعة الأولى</div>
+            </div>
         </div>
+    </div>
+    ```
+
+احفظ الملف بعد الاستبدال، وقم بتحديث الصفحة على جوالك وس تلاحظ ظهور الشارة الحمراء وأن القائمة أصبحت تظهر كاملة دون انقطاع.
     </div>
 </div>
         </div>
