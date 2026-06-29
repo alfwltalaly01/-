@@ -726,29 +726,27 @@ const notiContent = document.getElementById("notiContent");
 const bellBadge = document.querySelector(".bell-badge");
 
 if (notiBell && notiContent) {
+    // 1. عند الضغط على زر الجرس
     notiBell.addEventListener("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
-        notiContent.classList.toggle("show");
-    });
-    notiBell.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      notiContent.classList.toggle("show");
-      
-      // تصفير شارة التنبيه الحمراء بمجرد المشاهدة
-      if (bellBadge) {
-        bellBadge.style.display = "none";
-      }
+        
+        // إظهار أو إخفاء القائمة عن طريق تبديل كلاس hidden الخاص بـ Tailwind
+        notiContent.classList.toggle("hidden");
+        
+        // 2. إخفاء الدائرة الحمراء (الشارة) عند فتح الإشعارات
+        if (bellBadge) {
+            bellBadge.style.display = "none";
+        }
     });
 
-    // إغلاق القائمة تلقائياً إذا ضغط المستخدم في أي مكان خارجها
+    // 3. إغلاق القائمة تلقائياً إذا ضغط المستخدم في أي مكان خارج الجرس أو القائمة
     document.addEventListener("click", function(e) {
-      if (!notiBell.contains(e.target) && !notiContent.contains(e.target)) {
-        notiContent.classList.remove("show");
-      }
+        if (!notiBell.contains(e.target) && !notiContent.contains(e.target)) {
+            notiContent.classList.add("hidden");
+        }
     });
-  }
+}
 </script>
 </body>
 </html>
