@@ -727,9 +727,10 @@
   }
   // تفعيل عمل سلة الإشعارات
   const notiBell = document.getElementById("notiBell");
-  const notiContent = document.getElementById("notiContent");
-  const bellBadge = document.querySelector(".bell-badge");
-
+ // تصحيح الربط بين البرمجة والعناصر
+const notiBell = document.getElementById("notiBell");
+const notiContent = document.getElementById("notiContent");
+const bellBadge = document.querySelector(".bell-badge");
   if (notiBell && notiContent) {
     notiBell.addEventListener("click", function(e) {
       e.preventDefault();
