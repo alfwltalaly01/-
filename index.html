@@ -791,5 +791,27 @@ document.addEventListener("click", function(e) {
     });
 }
 </script>
+      <script>
+  const bell = document.getElementById('notiBell');
+  const dropdown = document.getElementById('notiContent');
+
+  // إخفاء القائمة في البداية
+  dropdown.style.display = 'none';
+
+  // فتح وإغلاق عند الضغط على الجرس
+  bell.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (dropdown.style.display === 'none') {
+      dropdown.style.display = 'block';
+    } else {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // إغلاق القائمة عند الضغط خارجها
+  document.addEventListener('click', function() {
+    dropdown.style.display = 'none';
+  });
+</script>  
 </body>
 </html>
