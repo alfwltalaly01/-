@@ -657,5 +657,5 @@ z-index: 999999;
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker-item{display:inline-flex;align-items:center;gap:7px;margin-left:50px;color:#f5e8c0;font-size:13.5px;font-weight:500}
 .ticker-item strong{color:#f0d060;font-weight:700}
-.ticker-sep{display:inline-block;margin-left:50px;color:#c9a227;font-size:16px;opacity:0.5}
+.ticker-inner{display:flex;align-items:center;white-space:nowrap;animation:tickerScroll linear infinite}
 @media(max-width:480px){.ticker-badge{font-size:11px;padding:10px 14px 10px 10px}.ticker-item{font-size:12px;margin-left:35px}.ticker-sep{margin-left:35px}}
