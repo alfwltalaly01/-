@@ -18,7 +18,10 @@ const firebaseConfig = {
 };
 
 // معدل تحويل النقاط: 1 نقطة لكل 50 ريال
-const POINTS_RATE = 50;
+// معدل التحصيل: كل 50 ريال بالفاتورة = نقطة واحدة
+const EARN_RATE = 50;
+// قيمة النقطة وقت الاستبدال: كل نقطة = 3 ريال
+const REDEEM_VALUE = 3;
 
 let fbApp = null, auth = null, db = null, currentStaff = null, pendingAction = null;
 
@@ -230,6 +233,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ---- عرض رصيد العميل فور إدخال رقمه (تحصيل واستبدال) ----
+  async function showCustomerBalance(phoneInputId, infoBoxId) {
+    if (!initFirebase()) return;
+    const phone = normalizePhone(document.getElementById(phoneInputId).value);
+    const box = document.getElementById(infoBoxId);
+    if (!box) return;
+    if (!phone) { box.classList.remove("show"); return; }
+    box.classList.add("show");
+    box.textContent = "جارٍ التحقق من الرصيد...";
+    try {
+      const snap = await db.collection("customers").doc(phone).get();
+      if (snap.exists) {
+        const d = snap.data();
+        box.innerHTML = `👤 <b>${escapeHtml(d.name)}</b> — رصيده الحالي: <b style="color:var(--gold)">${d.points} نقطة</b>`;
+      } else {
+        box.textContent = "⚠️ هذا الرقم غير مسجّل بعد.";
+      }
+    } catch (err) {
+      box.classList.remove("show");
+    }
+  }
+  document.getElementById("collectPhone")?.addEventListener("blur", () => showCustomerBalance("collectPhone", "collectBalanceInfo"));
+  document.getElementById("redeemPhone")?.addEventListener("blur", () => showCustomerBalance("redeemPhone", "redeemBalanceInfo"));
+
+  // ---- عرض القيمة التقديرية بالريال فور إدخال عدد نقاط الاستبدال ----
+  document.getElementById("redeemPoints")?.addEventListener("input", (e) => {
+    const box = document.getElementById("redeemValueInfo");
+    if (!box) return;
+    const points = parseInt(e.target.value, 10);
+    if (!points || points <= 0) { box.classList.remove("show"); return; }
+    const value = points * REDEEM_VALUE;
+    box.classList.add("show");
+    box.innerHTML = `💰 القيمة التقديرية لهذه النقاط: <b style="color:var(--gold)">${value.toLocaleString('ar-SA')} ريال</b> (بمعدل نقطة = ${REDEEM_VALUE} ريال عند الاستبدال)`;
+  });
+
   // ---- تحصيل النقاط (موظف) ----
   const collectForm = document.getElementById("collectForm");
   collectForm?.addEventListener("submit", async e => {
@@ -241,8 +279,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const amount = parseFloat(amountRaw);
     if (!phone) { showBox(resultBox, "رقم جوال غير صحيح. يجب أن يكون بصيغة 05XXXXXXXX.", true); return; }
     if (!amountRaw || isNaN(amount) || amount <= 0) { showBox(resultBox, "أدخل مبلغ فاتورة صحيح أكبر من صفر.", true); return; }
-    const points = Math.floor(amount / POINTS_RATE);
-    if (points <= 0) { showBox(resultBox, `المبلغ أقل من ${POINTS_RATE} ريال، لا توجد نقاط تُحتسب لهذه الفاتورة.`, true); return; }
+    const points = Math.floor(amount / EARN_RATE);
+    if (points <= 0) { showBox(resultBox, `المبلغ أقل من ${EARN_RATE} ريال، لا توجد نقاط تُحتسب لهذه الفاتورة.`, true); return; }
     const unlock = lockBtn(submitBtn, "جارٍ الحفظ...");
     showBox(resultBox, "جارٍ الحفظ...");
     try {
@@ -261,8 +299,10 @@ document.addEventListener("DOMContentLoaded", () => {
         staffEmail: currentStaff.email,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      showBox(resultBox, `تمت إضافة <b style="color:var(--gold)">${points} نقطة</b> لحساب ${escapeHtml(snap.data().name)} ✅`);
+      const newTotal = (snap.data().points || 0) + points;
+      showBox(resultBox, `تمت إضافة <b style="color:var(--gold)">${points} نقطة</b> لحساب ${escapeHtml(snap.data().name)} ✅<br/>الرصيد الإجمالي الآن: <b style="color:var(--gold)">${newTotal} نقطة</b>`);
       collectForm.reset();
+      document.getElementById("collectBalanceInfo")?.classList.remove("show");
     } catch (err) {
       showBox(resultBox, "حدث خطأ أثناء الحفظ.", true);
       console.error(err);
@@ -299,8 +339,10 @@ document.addEventListener("DOMContentLoaded", () => {
         staffEmail: currentStaff.email,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      showBox(resultBox, `تم استبدال <b style="color:var(--gold)">${points} نقطة</b> لحساب ${escapeHtml(snap.data().name)} ✅<br/>الرصيد المتبقي: ${current - points} نقطة`);
+      showBox(resultBox, `تم استبدال <b style="color:var(--gold)">${points} نقطة</b> (بقيمة تقديرية ${(points*REDEEM_VALUE).toLocaleString('ar-SA')} ريال) لحساب ${escapeHtml(snap.data().name)} ✅<br/>الرصيد المتبقي: ${current - points} نقطة`);
       redeemForm.reset();
+      document.getElementById("redeemBalanceInfo")?.classList.remove("show");
+      document.getElementById("redeemValueInfo")?.classList.remove("show");
     } catch (err) {
       showBox(resultBox, "حدث خطأ أثناء التنفيذ.", true);
       console.error(err);
