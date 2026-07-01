@@ -9,12 +9,12 @@
 // Firestore Security Rules (راجع ملف firestore.rules.txt المرفق).
 // =====================================================================
 const firebaseConfig = {
-  apiKey: "REPLACE_ME",
-  authDomain: "REPLACE_ME.firebaseapp.com",
-  projectId: "REPLACE_ME",
-  storageBucket: "REPLACE_ME.appspot.com",
-  messagingSenderId: "REPLACE_ME",
-  appId: "REPLACE_ME"
+  apiKey: "AIzaSyBvsVK74PhCAXNqeGMFTLBfi44CcGSgBDI",
+  authDomain: "highvolt.firebaseapp.com",
+  projectId: "highvolt",
+  storageBucket: "highvolt.firebasestorage.app",
+  messagingSenderId: "1088974560117",
+  appId: "1:1088974560117:web:f0fd15e5a820ea4186913c"
 };
 
 // معدل تحويل النقاط: 1 نقطة لكل 50 ريال
