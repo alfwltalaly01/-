@@ -20,8 +20,8 @@ const firebaseConfig = {
 // معدل تحويل النقاط: 1 نقطة لكل 50 ريال
 // معدل التحصيل: كل 50 ريال بالفاتورة = نقطة واحدة
 const EARN_RATE = 50;
-// قيمة النقطة وقت الاستبدال: كل نقطة = 3 ريال
-const REDEEM_VALUE = 3;
+// قيمة النقطة وقت الاستبدال: كل نقطة = 2 ريال
+const REDEEM_VALUE = 2;
 
 let fbApp = null, auth = null, db = null, currentStaff = null, pendingAction = null;
 
